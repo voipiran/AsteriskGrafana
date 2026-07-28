@@ -57,7 +57,7 @@
                       },
                       "labels": {
                         "grafana.app/export-label": "mysql-1",
-                        "grafana.app/export-datasource-name": "AsteriskCDR"
+                        "grafana.app/export-datasource-name": "AsteriskDB"
                       }
                     },
                     "refId": "A",
@@ -138,7 +138,7 @@
                       },
                       "labels": {
                         "grafana.app/export-label": "mysql-1",
-                        "grafana.app/export-datasource-name": "AsteriskCDR"
+                        "grafana.app/export-datasource-name": "AsteriskDB"
                       }
                     },
                     "refId": "B",
@@ -219,7 +219,7 @@
                       },
                       "labels": {
                         "grafana.app/export-label": "mysql-1",
-                        "grafana.app/export-datasource-name": "AsteriskCDR"
+                        "grafana.app/export-datasource-name": "AsteriskDB"
                       }
                     },
                     "refId": "C",
@@ -300,7 +300,7 @@
                       },
                       "labels": {
                         "grafana.app/export-label": "mysql-1",
-                        "grafana.app/export-datasource-name": "AsteriskCDR"
+                        "grafana.app/export-datasource-name": "AsteriskDB"
                       }
                     },
                     "refId": "D",
@@ -381,7 +381,7 @@
                       },
                       "labels": {
                         "grafana.app/export-label": "mysql-1",
-                        "grafana.app/export-datasource-name": "AsteriskCDR"
+                        "grafana.app/export-datasource-name": "AsteriskDB"
                       }
                     },
                     "refId": "E",
@@ -500,7 +500,7 @@
                       },
                       "labels": {
                         "grafana.app/export-label": "mysql-1",
-                        "grafana.app/export-datasource-name": "AsteriskCDR"
+                        "grafana.app/export-datasource-name": "AsteriskDB"
                       }
                     },
                     "refId": "F",
@@ -663,7 +663,7 @@
       "hideTimepicker": false,
       "fiscalYearStartMonth": 0
     },
-    "title": "CRD-1",
+    "title": "CDR Analytics",
     "variables": []
   }
 }
