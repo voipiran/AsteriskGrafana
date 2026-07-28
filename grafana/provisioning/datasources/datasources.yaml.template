@@ -1,0 +1,41 @@
+apiVersion: 1
+
+deleteDatasources: []
+
+datasources:
+
+  - name: AsteriskCDR
+    uid: voipiran-cdr
+    type: mysql
+    access: proxy
+    url: localhost:3306
+    database: asteriskcdrdb
+    user: grafana
+    secureJsonData:
+      password: __MYSQL_ROOT_PASSWORD__
+    isDefault: true
+    editable: false
+    jsonData:
+      maxOpenConns: 100
+      maxIdleConns: 100
+      connMaxLifetime: 14400
+      tlsAuth: false
+      tlsSkipVerify: true
+
+  - name: QueueStats
+    uid: voipiran-queue
+    type: mysql
+    access: proxy
+    url: localhost:3306
+    database: voipiran_stats
+    user: grafana
+    secureJsonData:
+      password: __MYSQL_ROOT_PASSWORD__
+    isDefault: false
+    editable: false
+    jsonData:
+      maxOpenConns: 100
+      maxIdleConns: 100
+      connMaxLifetime: 14400
+      tlsAuth: false
+      tlsSkipVerify: true
