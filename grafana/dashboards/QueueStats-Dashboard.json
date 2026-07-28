@@ -1,1131 +1,1154 @@
 {
-  "annotations": [
-    {
-      "kind": "AnnotationQuery",
-      "spec": {
-        "builtIn": true,
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "query": {
-          "datasource": {
-            "name": "-- Grafana --"
-          },
-          "group": "grafana",
-          "kind": "DataQuery",
-          "spec": {},
-          "version": "v0"
-        }
-      }
-    }
-  ],
-  "cursorSync": "Off",
-  "editable": true,
-  "elements": {
-    "panel-1": {
-      "kind": "Panel",
-      "spec": {
-        "data": {
-          "kind": "QueryGroup",
-          "spec": {
-            "queries": [
-              {
-                "kind": "PanelQuery",
-                "spec": {
-                  "hidden": false,
-                  "query": {
-                    "datasource": {
-                      "name": "QueueStats"
-                    },
-                    "group": "mysql",
-                    "kind": "DataQuery",
-                    "spec": {
-                      "dataset": "voipiran_stats",
-                      "editorMode": "code",
-                      "format": "table",
-                      "rawQuery": true,
-                      "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  COUNT(*) AS value\r\nFROM queue_stats\r\nWHERE event = 'ENTERQUEUE'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
-                      "sql": {
-                        "columns": [
-                          {
-                            "parameters": [],
-                            "type": "function"
-                          }
-                        ],
-                        "groupBy": [
-                          {
-                            "property": {
-                              "type": "string"
-                            },
-                            "type": "groupBy"
-                          }
-                        ],
-                        "limit": 50
-                      }
-                    },
-                    "version": "v0"
-                  },
-                  "refId": "A"
-                }
-              }
-            ],
-            "queryOptions": {},
-            "transformations": []
-          }
-        },
-        "description": "",
-        "id": 1,
-        "links": [],
-        "title": "Incoming Calls",
-        "transparent": true,
-        "vizConfig": {
-          "group": "timeseries",
-          "kind": "VizConfig",
-          "spec": {
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "palette-classic"
-                },
-                "custom": {
-                  "axisBorderShow": false,
-                  "axisCenteredZero": false,
-                  "axisColorMode": "text",
-                  "axisLabel": "",
-                  "axisPlacement": "auto",
-                  "barAlignment": 1,
-                  "barWidthFactor": 0.6,
-                  "drawStyle": "points",
-                  "fillOpacity": 0,
-                  "gradientMode": "none",
-                  "hideFrom": {
-                    "legend": false,
-                    "tooltip": false,
-                    "viz": false
-                  },
-                  "insertNulls": false,
-                  "lineInterpolation": "smooth",
-                  "lineWidth": 1,
-                  "pointSize": 5,
-                  "scaleDistribution": {
-                    "type": "linear"
-                  },
-                  "showPoints": "auto",
-                  "showValues": false,
-                  "spanNulls": false,
-                  "stacking": {
-                    "group": "A",
-                    "mode": "none"
-                  },
-                  "thresholdsStyle": {
-                    "mode": "off"
-                  }
-                },
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                }
-              },
-              "overrides": []
-            },
-            "options": {
-              "annotations": {
-                "clustering": -1,
-                "multiLane": false
-              },
-              "legend": {
-                "calcs": [],
-                "displayMode": "list",
-                "enableFacetedFilter": false,
-                "overflow": "ellipsis",
-                "placement": "bottom",
-                "showLegend": true
-              },
-              "tooltip": {
-                "hideZeros": false,
-                "mode": "multi",
-                "sort": "none"
-              }
-            }
-          },
-          "version": "13.1.1"
-        }
-      }
+  "apiVersion": "dashboard.grafana.app/v2",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "adc8tvv",
+    "namespace": "default",
+    "uid": "617b245f-17dd-42a8-93d1-b928c093bb16",
+    "resourceVersion": "1785236291419994",
+    "generation": 2,
+    "creationTimestamp": "2026-07-28T09:01:27Z",
+    "labels": {
+      "grafana.app/deprecatedInternalID": "1365625465782272"
     },
-    "panel-2": {
-      "kind": "Panel",
-      "spec": {
-        "data": {
-          "kind": "QueryGroup",
-          "spec": {
-            "queries": [
-              {
-                "kind": "PanelQuery",
-                "spec": {
-                  "hidden": false,
-                  "query": {
-                    "datasource": {
-                      "name": "QueueStats"
-                    },
-                    "group": "mysql",
-                    "kind": "DataQuery",
-                    "spec": {
-                      "dataset": "asterisk",
-                      "editorMode": "code",
-                      "format": "time_series",
-                      "rawQuery": true,
-                      "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  queuename AS metric,\r\n  COUNT(*) AS value\r\nFROM queue_stats\r\nWHERE event = 'ABANDON'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY queuename, DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
-                      "sql": {
-                        "columns": [
-                          {
-                            "parameters": [],
-                            "type": "function"
-                          }
-                        ],
-                        "groupBy": [
-                          {
-                            "property": {
-                              "type": "string"
-                            },
-                            "type": "groupBy"
-                          }
-                        ],
-                        "limit": 50
-                      }
-                    },
-                    "version": "v0"
-                  },
-                  "refId": "A"
-                }
-              }
-            ],
-            "queryOptions": {},
-            "transformations": []
-          }
-        },
-        "description": "",
-        "id": 2,
-        "links": [],
-        "title": "Abandoned Calls",
-        "transparent": true,
-        "vizConfig": {
-          "group": "barchart",
-          "kind": "VizConfig",
-          "spec": {
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "palette-classic"
-                },
-                "custom": {
-                  "axisBorderShow": false,
-                  "axisCenteredZero": false,
-                  "axisColorMode": "text",
-                  "axisLabel": "",
-                  "axisPlacement": "auto",
-                  "fillOpacity": 100,
-                  "gradientMode": "none",
-                  "hideFrom": {
-                    "legend": false,
-                    "tooltip": false,
-                    "viz": false
-                  },
-                  "lineWidth": 0,
-                  "scaleDistribution": {
-                    "type": "linear"
-                  },
-                  "thresholdsStyle": {
-                    "mode": "off"
-                  }
-                },
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                }
-              },
-              "overrides": []
-            },
-            "options": {
-              "barRadius": 0.05,
-              "barWidth": 0.95,
-              "fullHighlight": false,
-              "groupWidth": 0.8,
-              "legend": {
-                "calcs": [],
-                "displayMode": "list",
-                "overflow": "ellipsis",
-                "placement": "bottom",
-                "showLegend": true
-              },
-              "orientation": "auto",
-              "showValue": "auto",
-              "stacking": "none",
-              "tooltip": {
-                "hideZeros": false,
-                "mode": "multi",
-                "sort": "none"
-              },
-              "xTickLabelRotation": 0,
-              "xTickLabelSpacing": 100
-            }
-          },
-          "version": "13.1.1"
-        }
-      }
-    },
-    "panel-3": {
-      "kind": "Panel",
-      "spec": {
-        "data": {
-          "kind": "QueryGroup",
-          "spec": {
-            "queries": [
-              {
-                "kind": "PanelQuery",
-                "spec": {
-                  "hidden": false,
-                  "query": {
-                    "datasource": {
-                      "name": "QueueStats"
-                    },
-                    "group": "mysql",
-                    "kind": "DataQuery",
-                    "spec": {
-                      "dataset": "asterisk",
-                      "editorMode": "code",
-                      "format": "time_series",
-                      "rawQuery": true,
-                      "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  queuename AS metric,\r\n  COUNT(*) AS value\r\nFROM queue_stats\r\nWHERE event = 'CONNECT'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY queuename, DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
-                      "sql": {
-                        "columns": [
-                          {
-                            "parameters": [],
-                            "type": "function"
-                          }
-                        ],
-                        "groupBy": [
-                          {
-                            "property": {
-                              "type": "string"
-                            },
-                            "type": "groupBy"
-                          }
-                        ],
-                        "limit": 50
-                      }
-                    },
-                    "version": "v0"
-                  },
-                  "refId": "A"
-                }
-              }
-            ],
-            "queryOptions": {},
-            "transformations": []
-          }
-        },
-        "description": "",
-        "id": 3,
-        "links": [],
-        "title": "Answered Calls",
-        "transparent": true,
-        "vizConfig": {
-          "group": "barchart",
-          "kind": "VizConfig",
-          "spec": {
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "palette-classic"
-                },
-                "custom": {
-                  "axisBorderShow": false,
-                  "axisCenteredZero": false,
-                  "axisColorMode": "text",
-                  "axisLabel": "",
-                  "axisPlacement": "auto",
-                  "fillOpacity": 80,
-                  "gradientMode": "none",
-                  "hideFrom": {
-                    "legend": false,
-                    "tooltip": false,
-                    "viz": false
-                  },
-                  "lineWidth": 1,
-                  "scaleDistribution": {
-                    "type": "linear"
-                  },
-                  "thresholdsStyle": {
-                    "mode": "off"
-                  }
-                },
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                }
-              },
-              "overrides": []
-            },
-            "options": {
-              "barRadius": 0,
-              "barWidth": 0.97,
-              "fullHighlight": false,
-              "groupWidth": 0.7,
-              "legend": {
-                "calcs": [],
-                "displayMode": "list",
-                "overflow": "ellipsis",
-                "placement": "bottom",
-                "showLegend": true
-              },
-              "orientation": "auto",
-              "showValue": "auto",
-              "stacking": "none",
-              "tooltip": {
-                "hideZeros": false,
-                "mode": "multi",
-                "sort": "none"
-              },
-              "xTickLabelRotation": 0,
-              "xTickLabelSpacing": 0
-            }
-          },
-          "version": "13.1.1"
-        }
-      }
-    },
-    "panel-4": {
-      "kind": "Panel",
-      "spec": {
-        "data": {
-          "kind": "QueryGroup",
-          "spec": {
-            "queries": [
-              {
-                "kind": "PanelQuery",
-                "spec": {
-                  "hidden": false,
-                  "query": {
-                    "datasource": {
-                      "name": "QueueStats"
-                    },
-                    "group": "mysql",
-                    "kind": "DataQuery",
-                    "spec": {
-                      "dataset": "asterisk",
-                      "editorMode": "code",
-                      "format": "time_series",
-                      "rawQuery": true,
-                      "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  queuename AS metric,\r\n  COUNT(*) AS value\r\nFROM queue_stats\r\nWHERE event = 'ENTERQUEUE'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY metric, DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
-                      "sql": {
-                        "columns": [
-                          {
-                            "parameters": [],
-                            "type": "function"
-                          }
-                        ],
-                        "groupBy": [
-                          {
-                            "property": {
-                              "type": "string"
-                            },
-                            "type": "groupBy"
-                          }
-                        ],
-                        "limit": 50
-                      }
-                    },
-                    "version": "v0"
-                  },
-                  "refId": "A"
-                }
-              }
-            ],
-            "queryOptions": {},
-            "transformations": []
-          }
-        },
-        "description": "",
-        "id": 4,
-        "links": [],
-        "title": "Queue Traffic",
-        "transparent": true,
-        "vizConfig": {
-          "group": "barchart",
-          "kind": "VizConfig",
-          "spec": {
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "palette-classic"
-                },
-                "custom": {
-                  "axisBorderShow": false,
-                  "axisCenteredZero": false,
-                  "axisColorMode": "text",
-                  "axisLabel": "",
-                  "axisPlacement": "auto",
-                  "fillOpacity": 100,
-                  "gradientMode": "none",
-                  "hideFrom": {
-                    "legend": false,
-                    "tooltip": false,
-                    "viz": false
-                  },
-                  "lineWidth": 0,
-                  "scaleDistribution": {
-                    "type": "linear"
-                  },
-                  "thresholdsStyle": {
-                    "mode": "off"
-                  }
-                },
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                }
-              },
-              "overrides": []
-            },
-            "options": {
-              "barRadius": 0.05,
-              "barWidth": 0.95,
-              "fullHighlight": false,
-              "groupWidth": 0.8,
-              "legend": {
-                "calcs": [],
-                "displayMode": "list",
-                "overflow": "ellipsis",
-                "placement": "bottom",
-                "showLegend": true
-              },
-              "orientation": "auto",
-              "showValue": "auto",
-              "stacking": "none",
-              "tooltip": {
-                "hideZeros": false,
-                "mode": "multi",
-                "sort": "none"
-              },
-              "xField": "time",
-              "xTickLabelRotation": 0,
-              "xTickLabelSpacing": 100
-            }
-          },
-          "version": "13.1.1"
-        }
-      }
-    },
-    "panel-5": {
-      "kind": "Panel",
-      "spec": {
-        "data": {
-          "kind": "QueryGroup",
-          "spec": {
-            "queries": [
-              {
-                "kind": "PanelQuery",
-                "spec": {
-                  "hidden": false,
-                  "query": {
-                    "datasource": {
-                      "name": "QueueStats"
-                    },
-                    "group": "mysql",
-                    "kind": "DataQuery",
-                    "spec": {
-                      "dataset": "voipiran_stats",
-                      "editorMode": "code",
-                      "format": "time_series",
-                      "rawQuery": true,
-                      "rawSql": "SELECT\r\n  $__timeGroupAlias(time,'1h'),\r\n  queuename AS metric,\r\n  ROUND(AVG(CAST(data2 AS UNSIGNED)),2) AS value\r\nFROM queue_stats\r\nWHERE event IN ('COMPLETEAGENT','COMPLETECALLER')\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY 1,2\r\nORDER BY 1",
-                      "sql": {
-                        "columns": [
-                          {
-                            "parameters": [],
-                            "type": "function"
-                          }
-                        ],
-                        "groupBy": [
-                          {
-                            "property": {
-                              "type": "string"
-                            },
-                            "type": "groupBy"
-                          }
-                        ],
-                        "limit": 50
-                      }
-                    },
-                    "version": "v0"
-                  },
-                  "refId": "A"
-                }
-              }
-            ],
-            "queryOptions": {},
-            "transformations": []
-          }
-        },
-        "description": "",
-        "id": 5,
-        "links": [],
-        "title": "Average Talk Time",
-        "transparent": true,
-        "vizConfig": {
-          "group": "barchart",
-          "kind": "VizConfig",
-          "spec": {
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "palette-classic"
-                },
-                "custom": {
-                  "axisBorderShow": false,
-                  "axisCenteredZero": false,
-                  "axisColorMode": "text",
-                  "axisLabel": "",
-                  "axisPlacement": "auto",
-                  "fillOpacity": 100,
-                  "gradientMode": "none",
-                  "hideFrom": {
-                    "legend": false,
-                    "tooltip": false,
-                    "viz": false
-                  },
-                  "lineWidth": 0,
-                  "scaleDistribution": {
-                    "type": "linear"
-                  },
-                  "thresholdsStyle": {
-                    "mode": "off"
-                  }
-                },
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                },
-                "unit": "s"
-              },
-              "overrides": []
-            },
-            "options": {
-              "barRadius": 0.05,
-              "barWidth": 0.95,
-              "fullHighlight": false,
-              "groupWidth": 0.8,
-              "legend": {
-                "calcs": [],
-                "displayMode": "list",
-                "overflow": "ellipsis",
-                "placement": "bottom",
-                "showLegend": true
-              },
-              "orientation": "auto",
-              "showValue": "auto",
-              "stacking": "none",
-              "tooltip": {
-                "hideZeros": false,
-                "mode": "multi",
-                "sort": "none"
-              },
-              "xField": "Time",
-              "xTickLabelRotation": 0,
-              "xTickLabelSpacing": 100
-            }
-          },
-          "version": "13.1.1"
-        }
-      }
-    },
-    "panel-6": {
-      "kind": "Panel",
-      "spec": {
-        "data": {
-          "kind": "QueryGroup",
-          "spec": {
-            "queries": [
-              {
-                "kind": "PanelQuery",
-                "spec": {
-                  "hidden": false,
-                  "query": {
-                    "datasource": {
-                      "name": "QueueStats"
-                    },
-                    "group": "mysql",
-                    "kind": "DataQuery",
-                    "spec": {
-                      "dataset": "asterisk",
-                      "editorMode": "code",
-                      "format": "time_series",
-                      "rawQuery": true,
-                      "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  CONCAT('صف ', queuename) AS metric,\r\n  ROUND(AVG(data1), 2) AS value\r\nFROM queue_stats\r\nWHERE event = 'CONNECT'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY queuename, DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
-                      "sql": {
-                        "columns": [
-                          {
-                            "parameters": [],
-                            "type": "function"
-                          }
-                        ],
-                        "groupBy": [
-                          {
-                            "property": {
-                              "type": "string"
-                            },
-                            "type": "groupBy"
-                          }
-                        ],
-                        "limit": 50
-                      }
-                    },
-                    "version": "v0"
-                  },
-                  "refId": "A"
-                }
-              }
-            ],
-            "queryOptions": {},
-            "transformations": []
-          }
-        },
-        "description": "",
-        "id": 6,
-        "links": [],
-        "title": "Average Wait Time",
-        "transparent": true,
-        "vizConfig": {
-          "group": "barchart",
-          "kind": "VizConfig",
-          "spec": {
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "palette-classic"
-                },
-                "custom": {
-                  "axisBorderShow": false,
-                  "axisCenteredZero": false,
-                  "axisColorMode": "text",
-                  "axisLabel": "",
-                  "axisPlacement": "auto",
-                  "fillOpacity": 100,
-                  "gradientMode": "none",
-                  "hideFrom": {
-                    "legend": false,
-                    "tooltip": false,
-                    "viz": false
-                  },
-                  "lineWidth": 0,
-                  "scaleDistribution": {
-                    "type": "linear"
-                  },
-                  "thresholdsStyle": {
-                    "mode": "off"
-                  }
-                },
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                },
-                "unit": "s"
-              },
-              "overrides": []
-            },
-            "options": {
-              "barRadius": 0.05,
-              "barWidth": 0.95,
-              "fullHighlight": false,
-              "groupWidth": 0.8,
-              "legend": {
-                "calcs": [],
-                "displayMode": "list",
-                "overflow": "ellipsis",
-                "placement": "bottom",
-                "showLegend": true
-              },
-              "orientation": "auto",
-              "showValue": "auto",
-              "stacking": "none",
-              "tooltip": {
-                "hideZeros": false,
-                "mode": "multi",
-                "sort": "none"
-              },
-              "xField": "Time",
-              "xTickLabelRotation": 0,
-              "xTickLabelSpacing": 100
-            }
-          },
-          "version": "13.1.1"
-        }
-      }
-    },
-    "panel-7": {
-      "kind": "Panel",
-      "spec": {
-        "data": {
-          "kind": "QueryGroup",
-          "spec": {
-            "queries": [
-              {
-                "kind": "PanelQuery",
-                "spec": {
-                  "hidden": false,
-                  "query": {
-                    "datasource": {
-                      "name": "QueueStats"
-                    },
-                    "group": "mysql",
-                    "kind": "DataQuery",
-                    "spec": {
-                      "dataset": "asterisk",
-                      "editorMode": "code",
-                      "format": "table",
-                      "rawQuery": true,
-                      "rawSql": "SELECT\r\n  $__timeGroup(time, '1h') AS time,\r\n  ROUND(AVG(CAST(data3 AS UNSIGNED)), 2) AS avg_wait_before_abandon\r\nFROM queue_stats\r\nWHERE\r\n  event = 'ABANDON'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY time\r\nORDER BY time",
-                      "sql": {
-                        "columns": [
-                          {
-                            "parameters": [],
-                            "type": "function"
-                          }
-                        ],
-                        "groupBy": [
-                          {
-                            "property": {
-                              "type": "string"
-                            },
-                            "type": "groupBy"
-                          }
-                        ],
-                        "limit": 50
-                      }
-                    },
-                    "version": "v0"
-                  },
-                  "refId": "A"
-                }
-              }
-            ],
-            "queryOptions": {},
-            "transformations": []
-          }
-        },
-        "description": "",
-        "id": 7,
-        "links": [],
-        "title": "Customer Patience",
-        "vizConfig": {
-          "group": "stat",
-          "kind": "VizConfig",
-          "spec": {
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "fixedColor": "#ad46ff",
-                  "mode": "thresholds"
-                },
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                }
-              },
-              "overrides": []
-            },
-            "options": {
-              "colorMode": "background",
-              "graphMode": "area",
-              "justifyMode": "auto",
-              "orientation": "auto",
-              "percentChangeColorMode": "standard",
-              "reduceOptions": {
-                "calcs": [
-                  "lastNotNull"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "showPercentChange": false,
-              "textMode": "auto",
-              "wideLayout": true
-            }
-          },
-          "version": "13.1.1"
-        }
-      }
+    "annotations": {
+      "grafana.app/createdBy": "user:fft5jhx9syupsa",
+      "grafana.app/folder": "eftg10e902yo0c",
+      "grafana.app/saved-from-ui": "Grafana v13.1.1 (a9cee6e172)",
+      "grafana.app/updatedBy": "user:fft5jhx9syupsa",
+      "grafana.app/updatedTimestamp": "2026-07-28T10:58:11Z",
+      "grafana.app/folderTitle": "Queue Analytics",
+      "grafana.app/folderUrl": "/dashboards/f/eftg10e902yo0c/queue-analytics"
     }
   },
-  "layout": {
-    "kind": "GridLayout",
-    "spec": {
-      "items": [
-        {
-          "kind": "GridLayoutItem",
-          "spec": {
-            "element": {
-              "kind": "ElementReference",
-              "name": "panel-7"
+  "spec": {
+    "annotations": [
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "query": {
+            "kind": "DataQuery",
+            "group": "grafana",
+            "version": "v0",
+            "datasource": {
+              "name": "-- Grafana --"
             },
-            "height": 8,
-            "width": 12,
-            "x": 0,
-            "y": 0
-          }
-        },
-        {
-          "kind": "GridLayoutItem",
-          "spec": {
-            "element": {
-              "kind": "ElementReference",
-              "name": "panel-4"
-            },
-            "height": 8,
-            "width": 12,
-            "x": 12,
-            "y": 0
-          }
-        },
-        {
-          "kind": "GridLayoutItem",
-          "spec": {
-            "element": {
-              "kind": "ElementReference",
-              "name": "panel-5"
-            },
-            "height": 8,
-            "width": 12,
-            "x": 0,
-            "y": 8
-          }
-        },
-        {
-          "kind": "GridLayoutItem",
-          "spec": {
-            "element": {
-              "kind": "ElementReference",
-              "name": "panel-1"
-            },
-            "height": 8,
-            "width": 12,
-            "x": 12,
-            "y": 8
-          }
-        },
-        {
-          "kind": "GridLayoutItem",
-          "spec": {
-            "element": {
-              "kind": "ElementReference",
-              "name": "panel-6"
-            },
-            "height": 8,
-            "width": 12,
-            "x": 0,
-            "y": 16
-          }
-        },
-        {
-          "kind": "GridLayoutItem",
-          "spec": {
-            "element": {
-              "kind": "ElementReference",
-              "name": "panel-2"
-            },
-            "height": 8,
-            "width": 12,
-            "x": 12,
-            "y": 16
-          }
-        },
-        {
-          "kind": "GridLayoutItem",
-          "spec": {
-            "element": {
-              "kind": "ElementReference",
-              "name": "panel-3"
-            },
-            "height": 8,
-            "width": 12,
-            "x": 0,
-            "y": 24
-          }
+            "spec": {}
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "builtIn": true
         }
-      ]
-    }
-  },
-  "links": [],
-  "liveNow": false,
-  "preload": false,
-  "tags": [
-    "Queue",
-    "Call Center",
-    "VOIPIRAN",
-    "Issabel"
-  ],
-  "timeSettings": {
-    "autoRefresh": "",
-    "autoRefreshIntervals": [
-      "5s",
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
+      }
     ],
-    "fiscalYearStartMonth": 0,
-    "from": "now-24h",
-    "hideTimepicker": false,
-    "timezone": "Asia/Tehran",
-    "to": "now"
-  },
-  "title": "Queue Analytics",
-  "variables": [
-    {
-      "kind": "CustomVariable",
-      "spec": {
-        "allowCustomValue": true,
-        "current": {
-          "text": "INTERVAL 1 HOUR",
-          "value": "INTERVAL 1 HOUR"
-        },
-        "hide": "dontHide",
-        "includeAll": false,
-        "multi": false,
-        "name": "time_range",
-        "options": [],
-        "query": "INTERVAL 1 HOUR,INTERVAL 6 HOUR,INTERVAL 12 HOUR,INTERVAL 1 DAY,INTERVAL 7 DAY\n",
-        "skipUrlSync": false,
-        "valuesFormat": "csv"
-      }
-    },
-    {
-      "kind": "QueryVariable",
-      "spec": {
-        "allowCustomValue": true,
-        "current": {
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "definition": "SELECT DISTINCT queuename\r\nFROM queue_stats\r\nORDER BY queuename;",
-        "hide": "dontHide",
-        "includeAll": true,
-        "multi": true,
-        "name": "Queue",
-        "options": [],
-        "query": {
-          "datasource": {
-            "name": "QueueStats"
-          },
-          "group": "mysql",
-          "kind": "DataQuery",
-          "spec": {
-            "dataset": "asteriskcdrdb",
-            "editorMode": "code",
-            "format": "table",
-            "query": "SELECT DISTINCT queuename\r\nFROM queue_stats\r\nORDER BY queuename;",
-            "rawQuery": true,
-            "rawSql": "SELECT DISTINCT queuename\r\nFROM queue_stats\r\nORDER BY queuename;",
-            "refId": "SQLVariableQueryEditor-VariableQuery",
-            "sql": {
-              "columns": [
+    "cursorSync": "Off",
+    "editable": true,
+    "elements": {
+      "panel-1": {
+        "kind": "Panel",
+        "spec": {
+          "id": 1,
+          "title": "Incoming Calls",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
                 {
-                  "parameters": [],
-                  "type": "function"
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "mysql",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "QueueStats"
+                      },
+                      "spec": {
+                        "dataset": "asterisk",
+                        "editorMode": "code",
+                        "format": "table",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  COUNT(*) AS value\r\nFROM queue_stats\r\nWHERE event = 'ENTERQUEUE'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
                 }
               ],
-              "groupBy": [
-                {
-                  "property": {
-                    "type": "string"
-                  },
-                  "type": "groupBy"
-                }
-              ],
-              "limit": 50
+              "transformations": [],
+              "queryOptions": {}
             }
           },
-          "version": "v0"
-        },
-        "refresh": "onDashboardLoad",
-        "regex": "",
-        "regexApplyTo": "value",
-        "skipUrlSync": false,
-        "sort": "disabled"
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.1.1",
+            "spec": {
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 1,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "points",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "smooth",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          },
+          "transparent": true
+        }
+      },
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "id": 2,
+          "title": "Abandoned Calls",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "mysql",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "QueueStats"
+                      },
+                      "spec": {
+                        "dataset": "asterisk",
+                        "editorMode": "code",
+                        "format": "time_series",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  queuename AS metric,\r\n  COUNT(*) AS value\r\nFROM queue_stats\r\nWHERE event = 'ABANDON'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY queuename, DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "barchart",
+            "version": "13.1.1",
+            "spec": {
+              "options": {
+                "barRadius": 0.05,
+                "barWidth": 0.95,
+                "fullHighlight": false,
+                "groupWidth": 0.8,
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                },
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 100
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "fillOpacity": 100,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "lineWidth": 0,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          },
+          "transparent": true
+        }
+      },
+      "panel-3": {
+        "kind": "Panel",
+        "spec": {
+          "id": 3,
+          "title": "Answered Calls",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "mysql",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "QueueStats"
+                      },
+                      "spec": {
+                        "dataset": "asterisk",
+                        "editorMode": "code",
+                        "format": "time_series",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  queuename AS metric,\r\n  COUNT(*) AS value\r\nFROM queue_stats\r\nWHERE event = 'CONNECT'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY queuename, DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "barchart",
+            "version": "13.1.1",
+            "spec": {
+              "options": {
+                "barRadius": 0,
+                "barWidth": 0.97,
+                "fullHighlight": false,
+                "groupWidth": 0.7,
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                },
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 0
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "fillOpacity": 80,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "lineWidth": 1,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          },
+          "transparent": true
+        }
+      },
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "id": 4,
+          "title": "Queue Traffic",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "mysql",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "QueueStats"
+                      },
+                      "spec": {
+                        "dataset": "asterisk",
+                        "editorMode": "code",
+                        "format": "time_series",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  queuename AS metric,\r\n  COUNT(*) AS value\r\nFROM queue_stats\r\nWHERE event = 'ENTERQUEUE'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY metric, DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "barchart",
+            "version": "13.1.1",
+            "spec": {
+              "options": {
+                "barRadius": 0.05,
+                "barWidth": 0.95,
+                "fullHighlight": false,
+                "groupWidth": 0.8,
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                },
+                "xField": "time",
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 100
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "fillOpacity": 100,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "lineWidth": 0,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          },
+          "transparent": true
+        }
+      },
+      "panel-5": {
+        "kind": "Panel",
+        "spec": {
+          "id": 5,
+          "title": "Average Talk Time",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "mysql",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "QueueStats"
+                      },
+                      "spec": {
+                        "dataset": "voipiran_stats",
+                        "editorMode": "code",
+                        "format": "time_series",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\r\n  $__timeGroupAlias(time,'1h'),\r\n  queuename AS metric,\r\n  ROUND(AVG(CAST(data2 AS UNSIGNED)),2) AS value\r\nFROM queue_stats\r\nWHERE event IN ('COMPLETEAGENT','COMPLETECALLER')\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY 1,2\r\nORDER BY 1",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "barchart",
+            "version": "13.1.1",
+            "spec": {
+              "options": {
+                "barRadius": 0.05,
+                "barWidth": 0.95,
+                "fullHighlight": false,
+                "groupWidth": 0.8,
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                },
+                "xField": "Time",
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 100
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "s",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "fillOpacity": 100,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "lineWidth": 0,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          },
+          "transparent": true
+        }
+      },
+      "panel-6": {
+        "kind": "Panel",
+        "spec": {
+          "id": 6,
+          "title": "Average Wait Time",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "mysql",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "QueueStats"
+                      },
+                      "spec": {
+                        "dataset": "asterisk",
+                        "editorMode": "code",
+                        "format": "time_series",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\r\n  UNIX_TIMESTAMP(DATE_FORMAT(time, '%Y-%m-%d %H:00:00')) AS time_sec,\r\n  CONCAT('صف ', queuename) AS metric,\r\n  ROUND(AVG(data1), 2) AS value\r\nFROM queue_stats\r\nWHERE event = 'CONNECT'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY queuename, DATE_FORMAT(time, '%Y-%m-%d %H:00:00')\r\nORDER BY time_sec",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "barchart",
+            "version": "13.1.1",
+            "spec": {
+              "options": {
+                "barRadius": 0.05,
+                "barWidth": 0.95,
+                "fullHighlight": false,
+                "groupWidth": 0.8,
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                },
+                "xField": "Time",
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 100
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "s",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "fillOpacity": 100,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "lineWidth": 0,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          },
+          "transparent": true
+        }
+      },
+      "panel-7": {
+        "kind": "Panel",
+        "spec": {
+          "id": 7,
+          "title": "Customer Patience",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "mysql",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "QueueStats"
+                      },
+                      "spec": {
+                        "dataset": "asterisk",
+                        "editorMode": "code",
+                        "format": "table",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\r\n  $__timeGroup(time, '1h') AS time,\r\n  ROUND(AVG(CAST(data3 AS UNSIGNED)), 2) AS avg_wait_before_abandon\r\nFROM queue_stats\r\nWHERE\r\n  event = 'ABANDON'\r\n  AND $__timeFilter(time)\r\n  AND queuename IN (${Queue:sqlstring})\r\nGROUP BY time\r\nORDER BY time",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.1.1",
+            "spec": {
+              "options": {
+                "colorMode": "background",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds",
+                    "fixedColor": "#ad46ff"
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
       }
-    }
-  ]
+    },
+    "layout": {
+      "kind": "GridLayout",
+      "spec": {
+        "items": [
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-7"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 12,
+              "y": 0,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-4"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-5"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 12,
+              "y": 8,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-1"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 16,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-6"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 12,
+              "y": 16,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-2"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 24,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-3"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "links": [],
+    "liveNow": false,
+    "preload": false,
+    "tags": [
+      "Queue",
+      "Call Center",
+      "VOIPIRAN",
+      "Issabel"
+    ],
+    "timeSettings": {
+      "timezone": "Asia/Tehran",
+      "from": "2026-07-27T20:57:16.458Z",
+      "to": "2026-07-28T08:57:16.458Z",
+      "autoRefresh": "",
+      "autoRefreshIntervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "hideTimepicker": false,
+      "fiscalYearStartMonth": 0
+    },
+    "title": "Queue Analytics 2",
+    "variables": [
+      {
+        "kind": "CustomVariable",
+        "spec": {
+          "name": "time_range",
+          "query": "INTERVAL 1 HOUR,INTERVAL 6 HOUR,INTERVAL 12 HOUR,INTERVAL 1 DAY,INTERVAL 7 DAY\n",
+          "current": {
+            "text": "INTERVAL 1 HOUR",
+            "value": "INTERVAL 1 HOUR"
+          },
+          "options": [],
+          "multi": false,
+          "includeAll": false,
+          "label": "Time Range",
+          "hide": "dontHide",
+          "skipUrlSync": false,
+          "allowCustomValue": true,
+          "valuesFormat": "csv"
+        }
+      },
+      {
+        "kind": "QueryVariable",
+        "spec": {
+          "name": "Queue",
+          "current": {
+            "text": "All",
+            "value": [
+              "$__all"
+            ]
+          },
+          "hide": "dontHide",
+          "refresh": "onDashboardLoad",
+          "skipUrlSync": false,
+          "query": {
+            "kind": "DataQuery",
+            "group": "mysql",
+            "version": "v0",
+            "datasource": {
+              "name": "QueueStats"
+            },
+            "spec": {
+              "dataset": "asteriskcdrdb",
+              "editorMode": "code",
+              "format": "table",
+              "query": "SELECT DISTINCT queuename\r\nFROM queue_stats\r\nORDER BY queuename;",
+              "rawQuery": true,
+              "rawSql": "SELECT DISTINCT queuename\r\nFROM queue_stats\r\nORDER BY queuename;",
+              "refId": "SQLVariableQueryEditor-VariableQuery",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          },
+          "regex": "",
+          "regexApplyTo": "value",
+          "sort": "disabled",
+          "definition": "SELECT DISTINCT queuename\r\nFROM queue_stats\r\nORDER BY queuename;",
+          "options": [],
+          "multi": true,
+          "includeAll": true,
+          "allowCustomValue": true
+        }
+      }
+    ]
+  }
 }
