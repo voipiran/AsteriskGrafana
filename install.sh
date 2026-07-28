@@ -57,7 +57,7 @@ EOF
 
 echo "Installing Grafana..."
 
-yum install -y grafana jq
+yum install -y grafana
 
 ###############################################################################
 # Enable Grafana service

@@ -41,7 +41,7 @@
                     "group": "mysql",
                     "kind": "DataQuery",
                     "spec": {
-                      "dataset": "asterisk",
+                      "dataset": "voipiran_stats",
                       "editorMode": "code",
                       "format": "table",
                       "rawQuery": true,
@@ -1088,7 +1088,7 @@
         "options": [],
         "query": {
           "datasource": {
-            "name": "fftg0qcqt3nr4f"
+            "name": "QueueStats"
           },
           "group": "mysql",
           "kind": "DataQuery",
