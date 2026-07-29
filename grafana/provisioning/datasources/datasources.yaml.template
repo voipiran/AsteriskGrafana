@@ -19,8 +19,6 @@ datasources:
       maxOpenConns: 100
       maxIdleConns: 100
       connMaxLifetime: 14400
-      tlsAuth: false
-      tlsSkipVerify: true
 
   - name: QueueStats
     uid: voipiran-queue
@@ -37,5 +35,3 @@ datasources:
       maxOpenConns: 100
       maxIdleConns: 100
       connMaxLifetime: 14400
-      tlsAuth: false
-      tlsSkipVerify: true
