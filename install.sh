@@ -161,6 +161,16 @@ echo "Restarting Grafana..."
 systemctl restart grafana-server
 
 ###############################################################################
+# Create Public Dashboard Links
+###############################################################################
+
+echo "Creating Public Dashboard Links..."
+
+chmod +x create_public_dashboards.sh
+./create_public_dashboards.sh
+
+
+###############################################################################
 # Done
 ###############################################################################
 
