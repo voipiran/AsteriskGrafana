@@ -102,11 +102,12 @@ unzip -oq "${TMPDIR}/AsteriskQueueStatsDatabase.zip" -d "${TMPDIR}"
 
 chmod +x "${TMPDIR}/AsteriskQueueStatsDatabase-main/install.sh"
 
-cd "${TMPDIR}/AsteriskQueueStatsDatabase-main"
+pushd "${TMPDIR}/AsteriskQueueStatsDatabase-main" >/dev/null
 bash install.sh
-
+popd >/dev/null
 
 rm -rf "${TMPDIR}"
+
 
 echo "Queue Analytics Database installed."
 
