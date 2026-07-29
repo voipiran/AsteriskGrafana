@@ -85,6 +85,30 @@ FLUSH PRIVILEGES;
 
 EOF
 
+
+###############################################################################
+# Install Queue Analytics Database
+###############################################################################
+
+echo "Installing Queue Analytics Database..."
+
+TMPDIR=$(mktemp -d)
+
+curl -fsSL \
+https://github.com/voipiran/AsteriskQueueStatsDatabase/archive/refs/heads/main.zip \
+-o "${TMPDIR}/AsteriskQueueStatsDatabase.zip"
+
+unzip -oq "${TMPDIR}/AsteriskQueueStatsDatabase.zip" -d "${TMPDIR}"
+
+chmod +x "${TMPDIR}/AsteriskQueueStatsDatabase-main/install.sh"
+
+bash "${TMPDIR}/AsteriskQueueStatsDatabase-main/install.sh"
+
+rm -rf "${TMPDIR}"
+
+echo "Queue Analytics Database installed."
+
+
 ###############################################################################
 # Install datasource provisioning
 ###############################################################################
