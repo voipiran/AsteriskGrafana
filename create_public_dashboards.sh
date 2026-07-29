@@ -57,9 +57,12 @@ echo ""
 # Process Dashboards
 #############################################
 
-echo "$DASHBOARDS" | python3 <<'PYTHON'
+export DASHBOARDS
+
+python3 <<'PYTHON'
 
 import json
+import os
 import urllib.request
 import urllib.error
 import base64
@@ -73,7 +76,7 @@ LINK_FILE="/var/lib/voipiran/grafana_links.conf"
 
 auth=base64.b64encode(f"{USER}:{PASS}".encode()).decode()
 
-dashboards=json.load(sys.stdin)
+dashboards = json.loads(os.environ["DASHBOARDS"])
 
 def api(method,url,data=None):
 

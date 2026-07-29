@@ -1,5 +1,5 @@
 #!/bin/bash
-
+cd "$(dirname "$0")"
 ###############################################################################
 # VoIPIran Grafana Installer for Issabel 5
 # Installs Grafana, creates a read-only MySQL user, provisions datasources
@@ -102,7 +102,9 @@ unzip -oq "${TMPDIR}/AsteriskQueueStatsDatabase.zip" -d "${TMPDIR}"
 
 chmod +x "${TMPDIR}/AsteriskQueueStatsDatabase-main/install.sh"
 
-bash "${TMPDIR}/AsteriskQueueStatsDatabase-main/install.sh"
+cd "${TMPDIR}/AsteriskQueueStatsDatabase-main"
+bash install.sh
+
 
 rm -rf "${TMPDIR}"
 
